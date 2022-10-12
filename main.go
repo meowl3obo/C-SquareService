@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	routes "C-SquareService/controller"
+	routes "C-SquaredService/controller"
 
 	"github.com/gin-gonic/gin"
 )

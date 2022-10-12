@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	provider "C-SquareService/provider"
+	provider "C-SquaredService/provider"
 )
 
 type ApiResponse struct {

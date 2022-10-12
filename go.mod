@@ -1,4 +1,4 @@
-module C-SquareService
+module C-SquaredService
 
 go 1.19
 

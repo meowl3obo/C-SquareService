@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	service "C-SquareService/service"
+	service "C-SquaredService/service"
 )
 
 type Controller struct {
