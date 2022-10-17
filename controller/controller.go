@@ -24,6 +24,7 @@ func (r *Controller) Router() {
 		api.GET("/version", version)
 		v1 := api.Group("/v1")
 		{
+			v1.Use(service.DBMiddleware())
 			v1.GET("/param/:first", Param)
 			v1.GET("/query", service.Test)
 			v1.POST("/user", service.CreateUser)

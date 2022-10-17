@@ -19,14 +19,14 @@ const (
 )
 
 var dbconn *gorm.DB
-var connErr error
+var ConnErr error
 
 func init() {
 	addr := fmt.Sprintf("%s:%s@%s(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", UserName, Password, Network, Addr, Port, Database)
 
-	dbconn, connErr = gorm.Open(mysql.Open(addr), &gorm.Config{})
-	if connErr != nil {
-		fmt.Println("connection to mysql failed", connErr)
+	dbconn, ConnErr = gorm.Open(mysql.Open(addr), &gorm.Config{})
+	if ConnErr != nil {
+		fmt.Println("Error！connection to mysql failed, ", ConnErr)
 		return
 	}
 }
