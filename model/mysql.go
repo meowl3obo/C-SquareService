@@ -6,4 +6,5 @@ type User struct {
 	Status   int
 	CreateAt string
 	UpdateAt string
+	Name     string
 }

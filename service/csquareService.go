@@ -20,8 +20,26 @@ func Test(c *gin.Context) {
 	c.Data(http.StatusOK, "application/json", response)
 }
 
+func DBMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if provider.ConnErr != nil {
+			c.String(http.StatusInternalServerError, "connect db error")
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
+}
+
 func CreateUser(c *gin.Context) {
-	userData := User{}
+	userData := User{
+		Email:    "dear91304526@gmail.com",
+		Password: "meowl870706",
+		Status:   0,
+		CreateAt: "2022-10-17",
+		UpdateAt: "2022-10-17",
+		Name:     "安安",
+	}
 	err := provider.CreateUser(userData)
 	response := ApiResponse{}
 	if err != nil {
@@ -32,15 +50,4 @@ func CreateUser(c *gin.Context) {
 		response.ResultMessage = "success"
 	}
 	c.JSON(http.StatusOK, response)
-}
-
-func DBMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if provider.ConnErr != nil {
-			c.String(http.StatusInternalServerError, "connect db error")
-			c.Abort()
-			return
-		}
-		c.Next()
-	}
 }

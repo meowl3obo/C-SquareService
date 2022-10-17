@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	UserName string = "root"
+	UserName string = "meowl"
 	Password string = "meowl870706"
 	Network  string = "tcp"
 	Addr     string = "66.42.44.23"
