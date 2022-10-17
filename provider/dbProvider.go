@@ -32,7 +32,7 @@ func init() {
 }
 
 func CreateUser(userData User) {
-	dbconn.Table("user").Create(&userData)
+	dbconn.Table("users").Create(&userData)
 }
 
 // enp1s0
