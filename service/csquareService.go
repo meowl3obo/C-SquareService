@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	. "C-SquaredService/model"
 	provider "C-SquaredService/provider"
 )
 
@@ -16,6 +17,7 @@ type ApiResponse struct {
 func Test(c *gin.Context) {
 	secondParameter := c.Query("second")
 	response := provider.GetTest(secondParameter)
-	provider.CreateUser()
+	userData := User{}
+	provider.CreateUser(userData)
 	c.Data(http.StatusOK, "application/json", response)
 }

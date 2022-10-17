@@ -31,14 +31,8 @@ func init() {
 	}
 }
 
-func CreateUser() {
-	if connErr != nil {
-		fmt.Println("connection to mysql failed", connErr)
-		return
-	}
-	migrator := dbconn.Migrator()
-	has := migrator.HasTable(&User{})
-	fmt.Println(has)
+func CreateUser(userData User) {
+	dbconn.Table("user").Create(&userData)
 }
 
 // enp1s0
