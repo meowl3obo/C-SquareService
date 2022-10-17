@@ -31,7 +31,7 @@ func init() {
 	}
 }
 
-func CreateUser(userData User) {
+func CreateUser(userData Users) {
 	dbconn.Table("users").Create(&userData)
 }
 

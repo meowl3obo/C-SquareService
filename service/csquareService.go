@@ -17,7 +17,7 @@ type ApiResponse struct {
 func Test(c *gin.Context) {
 	secondParameter := c.Query("second")
 	response := provider.GetTest(secondParameter)
-	userData := User{}
+	userData := Users{}
 	provider.CreateUser(userData)
 	c.Data(http.StatusOK, "application/json", response)
 }

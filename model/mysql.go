@@ -1,6 +1,6 @@
 package model
 
-type User struct {
+type Users struct {
 	Email    string `gorm:"primaryKey"`
 	Password string
 	Status   int
