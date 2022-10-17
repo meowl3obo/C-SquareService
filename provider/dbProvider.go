@@ -31,8 +31,9 @@ func init() {
 	}
 }
 
-func CreateUser(userData Users) {
-	dbconn.Table("users").Create(&userData)
+func CreateUser(userData User) error {
+	result := dbconn.Table("users").Create(&userData)
+	return result.Error
 }
 
 // enp1s0

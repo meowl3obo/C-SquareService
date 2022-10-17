@@ -26,6 +26,7 @@ func (r *Controller) Router() {
 		{
 			v1.GET("/param/:first", Param)
 			v1.GET("/query", service.Test)
+			v1.POST("/user", service.CreateUser)
 		}
 	}
 }
