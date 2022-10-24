@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"C-SquaredService/service"
 
-	service "C-SquaredService/service"
+	"github.com/gin-gonic/gin"
 )
 
 type Controller struct {
@@ -29,21 +29,17 @@ func (r *Controller) Router() {
 			v1.GET("/query", service.Test)
 			v1.POST("/user", service.CreateUser)
 		}
+		back := api.Group("/back")
+		{
+			back.Use(service.DBMiddleware())
+			back.GET("/classify", service.GetProductClassify)
+		}
 	}
 }
-
-// @Summary 版本查詢
-// @Tags Version
-// @version 1.0
-// @Router /version [get]
 func version(c *gin.Context) {
 	c.String(http.StatusOK, fmt.Sprintf("%v V:%v-%v,Build:%v", "demo", "1.0.1", "Local", "2022/01/01 15:32:10"))
 }
 
-// @Summary Param 範例
-// @Tags Param
-// @version 1.0
-// @Router /param/test [get]
 func Param(c *gin.Context) {
 	firstParameter := c.Param("first")
 	c.String(http.StatusOK, "Param = %v\n", firstParameter)

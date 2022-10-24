@@ -36,4 +36,14 @@ func CreateUser(userData User) error {
 	return result.Error
 }
 
-// enp1s0
+func GetParentClassify() (error, []ParentClassify) {
+	var parentClassify []ParentClassify
+	result := dbconn.Table("parent_classify").Find(&parentClassify)
+	return result.Error, parentClassify
+}
+
+func GetChildClassify() (error, []ChildClassify) {
+	var childClassify []ChildClassify
+	result := dbconn.Table("child_classify").Find(&childClassify)
+	return result.Error, childClassify
+}
