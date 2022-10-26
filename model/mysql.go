@@ -13,6 +13,19 @@ type User struct {
 	UpdateAt   string
 }
 
+type Product struct {
+	Id             string `gorm:"primaryKey"`
+	Name           string
+	MainImg        string
+	OtherImg       string
+	Intro          string
+	Illustrate     string
+	ParentClassify int
+	ChildClassify  int
+	Status         int
+	Price          int
+}
+
 type ParentClassify struct {
 	Id   int `gorm:"primaryKey"`
 	Name string

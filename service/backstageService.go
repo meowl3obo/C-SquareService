@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -17,35 +18,32 @@ func GetProductClassify(c *gin.Context) {
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Get ParentClassify, %v", err))
 		c.JSON(http.StatusOK, classifyList)
-		return
 	}
 	err, childClassifyList := provider.GetChildClassify()
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Get ChildClassify, %v", err))
 		c.JSON(http.StatusOK, classifyList)
-		return
 	}
 	classifyList = transfer.MergeClassify(parentClassifyList, childClassifyList)
 	c.JSON(http.StatusOK, classifyList)
 }
 
 func InsertProduct(c *gin.Context) {
-	userData := User{
-		Email:    "dear91304526@gmail.com",
-		Password: "meowl870706",
-		Status:   0,
-		CreateAt: "2022-10-17",
-		UpdateAt: "2022-10-17",
-		Name:     "安安",
-	}
-	err := provider.CreateUser(userData)
-	response := ApiResponse{}
+	productData, err := transfer.ProductFormToModel(c)
 	if err != nil {
-		response.ResultCode = "500"
-		response.ResultMessage = err
-	} else {
-		response.ResultCode = "200"
-		response.ResultMessage = "success"
+		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
+		return
 	}
-	c.JSON(http.StatusOK, response)
+	os.Mkdir("img", os.ModePerm)
+	os.Mkdir(fmt.Sprintf("img/%v", productData.Id), os.ModePerm)
+	mainImg, err := c.FormFile("mainImg")
+	mainImgUrl := fmt.Sprintf("./img/%v/%v", productData.Id, mainImg.Filename)
+	err = c.SaveUploadedFile(mainImg, mainImgUrl)
+	if err != nil {
+		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
+		return
+	}
+	productData.MainImg = mainImgUrl
+
+	c.JSON(http.StatusOK, productData)
 }

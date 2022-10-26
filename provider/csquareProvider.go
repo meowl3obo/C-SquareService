@@ -1,13 +1,9 @@
 package provider
 
 import (
+	. "C-SquaredService/model"
 	"encoding/json"
 )
-
-type ApiResponse struct {
-	ResultCode    string
-	ResultMessage interface{}
-}
 
 type ResponseData struct {
 	Id   string
@@ -15,7 +11,7 @@ type ResponseData struct {
 }
 
 func GetTest(id string) []byte {
-	response := ApiResponse{"200", ResponseData{Id: id, Data: 123}}
+	response := ApiResponse{ResultCode: "200", ResultMessage: ResponseData{Id: id, Data: 123}}
 
 	responseData, _ := json.Marshal(response)
 

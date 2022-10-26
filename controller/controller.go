@@ -33,6 +33,7 @@ func (r *Controller) Router() {
 		{
 			back.Use(service.DBMiddleware())
 			back.GET("/classify", service.GetProductClassify)
+			back.POST("/product", service.InsertProduct)
 		}
 	}
 }

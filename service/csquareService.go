@@ -9,11 +9,6 @@ import (
 	provider "C-SquaredService/provider"
 )
 
-type ApiResponse struct {
-	ResultCode    string
-	ResultMessage interface{}
-}
-
 func Test(c *gin.Context) {
 	secondParameter := c.Query("second")
 	response := provider.GetTest(secondParameter)
