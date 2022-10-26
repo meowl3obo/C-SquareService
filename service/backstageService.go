@@ -43,6 +43,21 @@ func InsertProduct(c *gin.Context) {
 		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
 		return
 	}
+	form, err := c.MultipartForm()
+	if err != nil {
+		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
+		return
+	}
+	otherImgs := form.File["otherImg"]
+	for _, otherImg := range otherImgs {
+		otherImgUrl := fmt.Sprintf("./img/%v/%v", productData.Id, otherImg.Filename)
+		err = c.SaveUploadedFile(otherImg, otherImgUrl)
+		if err != nil {
+			c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
+			return
+		}
+	}
+
 	productData.MainImg = mainImgUrl
 
 	c.JSON(http.StatusOK, productData)
