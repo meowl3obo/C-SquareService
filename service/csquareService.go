@@ -15,17 +15,6 @@ func Test(c *gin.Context) {
 	c.Data(http.StatusOK, "application/json", response)
 }
 
-func DBMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if provider.ConnErr != nil {
-			c.String(http.StatusInternalServerError, "connect db error")
-			c.Abort()
-			return
-		}
-		c.Next()
-	}
-}
-
 func CreateUser(c *gin.Context) {
 	userData := User{
 		Email:    "dear91304526@gmail.com",

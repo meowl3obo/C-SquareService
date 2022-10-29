@@ -6,6 +6,7 @@ import (
 
 	"C-SquaredService/service"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,6 +20,7 @@ func NewController(e *gin.Engine) *Controller {
 
 // 設定Router
 func (r *Controller) Router() {
+	r.Use(cors.Default())
 	api := r.Group("/api")
 	{
 		api.GET("/version", version)
