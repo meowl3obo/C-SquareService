@@ -47,3 +47,8 @@ func GetChildClassify() (error, []ChildClassify) {
 	result := dbconn.Table("child_classify").Find(&childClassify)
 	return result.Error, childClassify
 }
+
+func CreateProduct(productData Product) error {
+	result := dbconn.Table("product").Create(&productData)
+	return result.Error
+}

@@ -26,15 +26,18 @@ func (r *Controller) Router() {
 	api := r.Group("/api")
 	{
 		api.Use(middlewares.DBMiddleware())
+		api.Use(middlewares.CorsMiddleware())
 		api.GET("/version", version)
 		v1 := api.Group("/v1")
 		{
+			v1.Use(middlewares.CorsMiddleware())
 			v1.GET("/param/:first", Param)
 			v1.GET("/query", service.Test)
 			v1.POST("/user", service.CreateUser)
 		}
 		back := api.Group("/back")
 		{
+			back.Use(middlewares.CorsMiddleware())
 			back.GET("/classify", service.GetProductClassify)
 			back.POST("/product", service.InsertProduct)
 		}
