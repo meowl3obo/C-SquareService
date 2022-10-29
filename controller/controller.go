@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"C-SquaredService/service"
+	"C-SquaredService/service/middlewares"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -20,20 +21,20 @@ func NewController(e *gin.Engine) *Controller {
 
 // 設定Router
 func (r *Controller) Router() {
+	r.Use(middlewares.CorsMiddleware())
 	r.Use(cors.Default())
 	api := r.Group("/api")
 	{
+		api.Use(middlewares.DBMiddleware())
 		api.GET("/version", version)
 		v1 := api.Group("/v1")
 		{
-			v1.Use(service.DBMiddleware())
 			v1.GET("/param/:first", Param)
 			v1.GET("/query", service.Test)
 			v1.POST("/user", service.CreateUser)
 		}
 		back := api.Group("/back")
 		{
-			back.Use(service.DBMiddleware())
 			back.GET("/classify", service.GetProductClassify)
 			back.POST("/product", service.InsertProduct)
 		}
