@@ -27,12 +27,13 @@ type Product struct {
 }
 
 type Inventory struct {
-	Id        string `gorm:"primaryKey"`
-	ProductId string
-	Color     string
-	Size      float64
-	Unit      string
-	Inventory int
+	Id             string `gorm:"primaryKey"`
+	ProductId      string
+	Color          string
+	Size           float64
+	Unit           string
+	PreOrderAmount int
+	NowAmount      int
 }
 
 type ParentClassify struct {
