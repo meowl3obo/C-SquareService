@@ -30,7 +30,9 @@ func GetProductClassify(c *gin.Context) {
 }
 
 func InsertProduct(c *gin.Context) {
+	response := ApiResponse{}
 	productData, err := transfer.ProductFormToModel(c)
+	Inventory, err := transfer.InventoryFormToModel(c, productData.Id)
 	if err != nil {
 		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
 		return
@@ -73,13 +75,18 @@ func InsertProduct(c *gin.Context) {
 	productData.OtherImg = string(OtherImgsByte)
 
 	err = provider.CreateProduct(productData)
-	response := ApiResponse{}
 	if err != nil {
 		response.ResultCode = "500"
 		response.ResultMessage = err
 	} else {
-		response.ResultCode = "200"
-		response.ResultMessage = "success"
+		err = provider.CreateInventory(Inventory)
+		if err != nil {
+			response.ResultCode = "500"
+			response.ResultMessage = err
+		} else {
+			response.ResultCode = "200"
+			response.ResultMessage = "success"
+		}
 	}
 
 	c.JSON(http.StatusOK, response)

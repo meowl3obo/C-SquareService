@@ -52,3 +52,8 @@ func CreateProduct(productData Product) error {
 	result := dbconn.Table("product").Create(&productData)
 	return result.Error
 }
+
+func CreateInventory(inventoryData Inventory) error {
+	result := dbconn.Table("product_inventory").Create(&inventoryData)
+	return result.Error
+}

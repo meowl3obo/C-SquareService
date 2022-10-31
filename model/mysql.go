@@ -26,6 +26,15 @@ type Product struct {
 	Price          int
 }
 
+type Inventory struct {
+	Id        string `gorm:"primaryKey"`
+	ProductId string
+	Color     string
+	Size      float64
+	Unit      string
+	Inventory int
+}
+
 type ParentClassify struct {
 	Id   int `gorm:"primaryKey"`
 	Name string
