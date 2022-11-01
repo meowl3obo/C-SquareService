@@ -2,7 +2,6 @@ package provider
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 
 	. "C-SquaredService/model"
@@ -56,12 +55,11 @@ func CreateProduct(productData Product) error {
 	if result.Error != nil {
 		byteErr, _ := json.Marshal(result.Error)
 		json.Unmarshal((byteErr), &newError)
+		if newError.Number != 1062 {
+			return result.Error
+		}
 	}
-	err := errors.New("")
-	if newError.Number != 1062 {
-		err = result.Error
-	}
-	return err
+	return nil
 }
 
 func CreateInventory(inventoryData Inventory) error {
