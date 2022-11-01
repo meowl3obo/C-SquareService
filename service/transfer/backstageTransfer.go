@@ -35,7 +35,7 @@ func InventoryFormToModel(c *gin.Context, productID string) (Inventory, error) {
 	InventoryData.Unit = c.PostForm("unit")
 	InventoryData.PreOrderAmount, err = strconv.Atoi(c.PostForm("preOrderAmount"))
 	InventoryData.NowAmount, err = strconv.Atoi(c.PostForm("nowAmount"))
-	InventoryData.Id = fmt.Sprintf("CSQI%v", hashService.Encrypt(fmt.Sprintf("%v%v%v%v", InventoryData.Id, InventoryData.Color, InventoryData.Size, InventoryData.Unit), 6))
+	InventoryData.Id = fmt.Sprintf("CSQI%v", hashService.Encrypt(fmt.Sprintf("%v%v%v%v", InventoryData.ProductId, InventoryData.Color, InventoryData.Size, InventoryData.Unit), 6))
 
 	return InventoryData, err
 }
