@@ -1,6 +1,8 @@
 package provider
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 
 	. "C-SquaredService/model"
@@ -50,7 +52,16 @@ func GetChildClassify() (error, []ChildClassify) {
 
 func CreateProduct(productData Product) error {
 	result := dbconn.Table("product").Create(&productData)
-	return result.Error
+	var newError GormErr
+	if result.Error != nil {
+		byteErr, _ := json.Marshal(result.Error)
+		json.Unmarshal((byteErr), &newError)
+	}
+	err := errors.New("")
+	if newError.Number != 1062 {
+		err = result.Error
+	}
+	return err
 }
 
 func CreateInventory(inventoryData Inventory) error {

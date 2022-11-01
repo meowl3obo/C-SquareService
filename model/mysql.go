@@ -1,5 +1,10 @@
 package model
 
+type GormErr struct {
+	Number  int    `json:"Number"`
+	Message string `json:"Message"`
+}
+
 type User struct {
 	Email      string `gorm:"primaryKey"`
 	Password   string
