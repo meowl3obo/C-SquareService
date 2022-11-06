@@ -18,4 +18,6 @@ type InputProduct struct {
 	ChildClassify  string
 	Status         string
 	Price          string
+	IsNew          bool
+	IsSale         bool
 }

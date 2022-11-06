@@ -39,13 +39,13 @@ func CreateUser(userData User) error {
 
 func GetParentClassify() (error, []ParentClassify) {
 	var parentClassify []ParentClassify
-	result := dbconn.Table("parent_classify").Find(&parentClassify)
+	result := dbconn.Table("parent_classify").Order("sort").Find(&parentClassify)
 	return result.Error, parentClassify
 }
 
 func GetChildClassify() (error, []ChildClassify) {
 	var childClassify []ChildClassify
-	result := dbconn.Table("child_classify").Find(&childClassify)
+	result := dbconn.Table("child_classify").Order("sort").Find(&childClassify)
 	return result.Error, childClassify
 }
 

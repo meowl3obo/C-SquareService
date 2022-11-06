@@ -29,6 +29,8 @@ type Product struct {
 	ChildClassify  string
 	Status         int
 	Price          int
+	IsNew          bool
+	IsSale         bool
 }
 
 type Inventory struct {
@@ -45,6 +47,7 @@ type ParentClassify struct {
 	Id   string `gorm:"primaryKey"`
 	Name string
 	Path string
+	Sort int
 }
 
 type ChildClassify struct {
@@ -52,4 +55,5 @@ type ChildClassify struct {
 	ParentId string
 	Name     string
 	Path     string
+	Sort     int
 }

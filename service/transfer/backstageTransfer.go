@@ -22,6 +22,8 @@ func ProductFormToModel(c *gin.Context) (Product, error) {
 	productData.Illustrate = c.PostForm("illustrate")
 	productData.Name = c.PostForm("name")
 	productData.Id = fmt.Sprintf("CSQ%v%v%v", productData.ParentClassify, productData.ChildClassify, hashService.Encrypt(productData.Name, 5))
+	productData.IsNew, err = strconv.ParseBool(c.PostForm("isNew"))
+	productData.IsSale, err = strconv.ParseBool(c.PostForm("isSale"))
 
 	return productData, err
 }
