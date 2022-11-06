@@ -15,8 +15,8 @@ func ProductFormToModel(c *gin.Context) (Product, error) {
 	var productData = Product{}
 	err := errors.New("")
 	productData.Status, err = strconv.Atoi(c.PostForm("status"))
-	productData.ParentClassify, err = strconv.Atoi(c.PostForm("parentClassify"))
-	productData.ChildClassify, err = strconv.Atoi(c.PostForm("childClassify"))
+	productData.ParentClassify = c.PostForm("parentClassify")
+	productData.ChildClassify = c.PostForm("childClassify")
 	productData.Price, err = strconv.Atoi(c.PostForm("price"))
 	productData.Intro = c.PostForm("intro")
 	productData.Illustrate = c.PostForm("illustrate")

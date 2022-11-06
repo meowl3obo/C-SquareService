@@ -1,7 +1,7 @@
 package model
 
 type Classify struct {
-	Id    int
+	Id    string
 	Name  string
 	Path  string
 	Child []ChildClassify

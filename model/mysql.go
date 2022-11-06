@@ -25,8 +25,8 @@ type Product struct {
 	OtherImg       string
 	Intro          string
 	Illustrate     string
-	ParentClassify int
-	ChildClassify  int
+	ParentClassify string
+	ChildClassify  string
 	Status         int
 	Price          int
 }
@@ -42,14 +42,14 @@ type Inventory struct {
 }
 
 type ParentClassify struct {
-	Id   int `gorm:"primaryKey"`
+	Id   string `gorm:"primaryKey"`
 	Name string
 	Path string
 }
 
 type ChildClassify struct {
-	Id       int `gorm:"primaryKey"`
-	ParentId int
+	Id       string `gorm:"primaryKey"`
+	ParentId string
 	Name     string
 	Path     string
 }
