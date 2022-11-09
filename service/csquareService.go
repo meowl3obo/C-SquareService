@@ -35,3 +35,30 @@ func CreateUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, response)
 }
+
+func GetProduct(c *gin.Context) {
+	parentID := c.Param("id")
+	childID := c.Query("child")
+	if parentID == "sale" {
+		err, products := provider.GetSaleProduct()
+		if err != nil {
+			c.JSON(http.StatusOK, err)
+		} else {
+			c.JSON(http.StatusOK, products)
+		}
+	} else if parentID == "new" {
+		err, products := provider.GetNewProduct()
+		if err != nil {
+			c.JSON(http.StatusOK, err)
+		} else {
+			c.JSON(http.StatusOK, products)
+		}
+	} else {
+		err, products := provider.GetProduct(parentID, childID)
+		if err != nil {
+			c.JSON(http.StatusOK, err)
+		} else {
+			c.JSON(http.StatusOK, products)
+		}
+	}
+}

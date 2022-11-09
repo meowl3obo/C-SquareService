@@ -66,3 +66,26 @@ func CreateInventory(inventoryData Inventory) error {
 	result := dbconn.Table("product_inventory").Create(&inventoryData)
 	return result.Error
 }
+
+func GetSaleProduct() (error, []Product) {
+	var products []Product
+	result := dbconn.Table("product").Where("is_sale = ?", "1").Find(&products)
+	return result.Error, products
+}
+
+func GetNewProduct() (error, []Product) {
+	var products []Product
+	result := dbconn.Table("product").Where("is_new = ?", "1").Find(&products)
+	return result.Error, products
+}
+
+func GetProduct(parentID string, childID string) (error, []Product) {
+	var products []Product
+	if childID == "" {
+		result := dbconn.Table("product").Where("parent_classify = ?", parentID).Find(&products)
+		return result.Error, products
+	} else {
+		result := dbconn.Table("product").Where("parent_classify = ? AND child_classify = ?", parentID, childID).Find(&products)
+		return result.Error, products
+	}
+}
