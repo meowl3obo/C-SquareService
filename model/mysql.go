@@ -33,6 +33,19 @@ type Product struct {
 	IsSale         bool
 }
 
+type ProductSimple struct {
+	Id             string `gorm:"primaryKey"`
+	Name           string
+	MainImg        string
+	Intro          string
+	ParentClassify string
+	ChildClassify  string
+	Status         int
+	Price          int
+	IsNew          bool
+	IsSale         bool
+}
+
 type Inventory struct {
 	Id             string `gorm:"primaryKey"`
 	ProductId      string

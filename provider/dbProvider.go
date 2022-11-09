@@ -67,25 +67,31 @@ func CreateInventory(inventoryData Inventory) error {
 	return result.Error
 }
 
-func GetSaleProduct() (error, []Product) {
-	var products []Product
-	result := dbconn.Table("product").Where("is_sale = ?", "1").Find(&products)
+func GetSaleProducts() (error, []ProductSimple) {
+	var products []ProductSimple
+	result := dbconn.Table("product").Where("is_sale = ? AND status = ?", "1", "1").Find(&products)
 	return result.Error, products
 }
 
-func GetNewProduct() (error, []Product) {
-	var products []Product
-	result := dbconn.Table("product").Where("is_new = ?", "1").Find(&products)
+func GetNewProducts() (error, []ProductSimple) {
+	var products []ProductSimple
+	result := dbconn.Table("product").Where("is_new = ? AND status = ?", "1", "1").Find(&products)
 	return result.Error, products
 }
 
-func GetProduct(parentID string, childID string) (error, []Product) {
-	var products []Product
+func GetProducts(parentID string, childID string) (error, []ProductSimple) {
+	var products []ProductSimple
 	if childID == "" {
-		result := dbconn.Table("product").Where("parent_classify = ?", parentID).Find(&products)
+		result := dbconn.Table("product").Where("parent_classify = ? AND status = ?", parentID, "1").Find(&products)
 		return result.Error, products
 	} else {
-		result := dbconn.Table("product").Where("parent_classify = ? AND child_classify = ?", parentID, childID).Find(&products)
+		result := dbconn.Table("product").Where("parent_classify = ? AND child_classify = ? AND status = ?", parentID, childID, "1").Find(&products)
 		return result.Error, products
 	}
+}
+
+func GetProduct(ID string) (error, Product) {
+	var product Product
+	result := dbconn.Table("product").Where("id = ? AND status = ?", ID, "1").Find(&product)
+	return result.Error, product
 }
