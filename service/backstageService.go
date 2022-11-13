@@ -44,7 +44,7 @@ func InsertProduct(c *gin.Context) {
 		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
 		return
 	}
-	mainImgUrl := fmt.Sprintf("./img/%v/%v", productData.Id, mainImg.Filename)
+	mainImgUrl := fmt.Sprintf("/img/%v/%v", productData.Id, mainImg.Filename)
 	err = c.SaveUploadedFile(mainImg, mainImgUrl)
 	if err != nil {
 		c.JSON(http.StatusOK, ApiResponse{ResultCode: "500", ResultMessage: err})
@@ -58,7 +58,7 @@ func InsertProduct(c *gin.Context) {
 	otherImgs := form.File["otherImg"]
 	otherImgUrls := []string{}
 	for _, otherImg := range otherImgs {
-		otherImgUrl := fmt.Sprintf("./img/%v/%v", productData.Id, otherImg.Filename)
+		otherImgUrl := fmt.Sprintf("/img/%v/%v", productData.Id, otherImg.Filename)
 		err = c.SaveUploadedFile(otherImg, otherImgUrl)
 		otherImgUrls = append(otherImgUrls, otherImgUrl)
 		if err != nil {
