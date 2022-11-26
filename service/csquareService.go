@@ -7,6 +7,7 @@ import (
 
 	. "C-SquaredService/model"
 	provider "C-SquaredService/provider"
+	"C-SquaredService/service/transfer"
 )
 
 func Test(c *gin.Context) {
@@ -66,7 +67,15 @@ func GetProducts(c *gin.Context) {
 func GetProduct(c *gin.Context) {
 	ID := c.Param("id")
 	err, product := provider.GetProduct(ID)
-	if err == nil {
-		c.JSON(http.StatusOK, product)
+	if err != nil {
+		c.JSON(http.StatusOK, err)
+	} else {
+		err, inventorys := provider.GetProductInventory(ID)
+		if err != nil {
+			c.JSON(http.StatusOK, err)
+		} else {
+			productInventory := transfer.MergeProductInventory(product, inventorys)
+			c.JSON(http.StatusOK, productInventory)
+		}
 	}
 }

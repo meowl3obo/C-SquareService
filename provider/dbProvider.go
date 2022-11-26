@@ -95,3 +95,9 @@ func GetProduct(ID string) (error, Product) {
 	result := dbconn.Table("product").Where("id = ? AND status = ?", ID, "1").Find(&product)
 	return result.Error, product
 }
+
+func GetProductInventory(productID string) (error, []Inventory) {
+	var inventorys []Inventory
+	result := dbconn.Table("product_inventory").Where("product_id = ?", productID).Find(&inventorys)
+	return result.Error, inventorys
+}
